@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using Real_Estate_Dapper_Api.Dtos.BottomGridDtos;
 using Real_Estate_Dapper_Api.Models.DapperContext;
-using Real_Estate_Dapper_Api.Dtos.BottomGridDtos;
+
 
 namespace Real_Estate_Dapper_Api.Repositories.BottomGridRepositories
 {
