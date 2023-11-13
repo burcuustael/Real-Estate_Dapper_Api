@@ -14,7 +14,7 @@ namespace Real_Estate_Dapper_Api.Repositories.WhoWeAreRepository
         }
         public async void CreateWhoWeAreDetail(CreateWhoWeAreDetailDto createWhoWeAreDetailDto)
         {
-            string query = "insert into WhoWeAreDetail (Title,Subtitle,Descripton1,Descripton2) values (@title,@subTitle,@descripton1,@descripton2)";
+            string query = "insert into WhoWeAreDetail (Title,Subtitle,Description1,Description2) values (@title,@subTitle,@descripton1,@descripton2)";
             var parameters = new DynamicParameters();
             parameters.Add("@title", createWhoWeAreDetailDto.Title);
             parameters.Add("@subTitle", createWhoWeAreDetailDto.Subtitle);
