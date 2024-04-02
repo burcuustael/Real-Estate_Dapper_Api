@@ -18,7 +18,7 @@ namespace RealEstate_Dapper_UI.Controllers
         public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:44359/api/Products/ProductListWithCategory");
+            var responseMessage = await client.GetAsync("http://localhost:5170/api/Products/ProductListWithCategory");
 
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -33,7 +33,7 @@ namespace RealEstate_Dapper_UI.Controllers
         public async Task<IActionResult> CreateProduct()
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:44359/api/Categories");
+            var responseMessage = await client.GetAsync("http://localhost:5170/api/Categories");
 
             var jsonData = await responseMessage.Content.ReadAsStringAsync();
             var values = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData);
