@@ -2,18 +2,29 @@
 using Newtonsoft.Json;
 using RealEstate_Dapper_UI.Dtos.EmployeeDtos;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
+using RealEstate_Dapper_UI.Services;
 
 namespace RealEstate_Dapper_UI.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        public EmployeeController(IHttpClientFactory httpClientFactory)
+        private readonly ILoginService _loginService;
+        public EmployeeController(IHttpClientFactory httpClientFactory, ILoginService loginService, IHttpContextAccessor contextAccessor)
         {
             _httpClientFactory = httpClientFactory;
+            _loginService = loginService;
         }
         public async Task<IActionResult> Index()
         {
+            var user = User.Claims;
+            var userId = _loginService.GetUserId;
+            
+            var token = User.Claims.FirstOrDefault(x => x.Type == "realestatetoken")?.Value;
+            if (token != null)
+            {
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.GetAsync("http://localhost:5170/api/Employees");
             if (responseMessage.IsSuccessStatusCode)
@@ -21,6 +32,8 @@ namespace RealEstate_Dapper_UI.Controllers
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultEmployeeDto>>(jsonData);
                 return View(values);
+            }
+            
             }
             return View();
         }
